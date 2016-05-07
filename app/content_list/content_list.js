@@ -6,7 +6,7 @@
 var listApp = angular.module('listApp', ['httpService']).
     controller('ListController', function ($scope, $compile, $templateCache, httpService) {
         //列表项数据拼接
-        $scope.appendItemContent = function () {
+        $scope.appendItemContent = function (data) {
             $scope.contentList = $scope.contentList || [];
             for (var i = 0; i < data.list.length; i++) {
                 $scope.contentList.push(data.list[i]);
@@ -21,14 +21,14 @@ var listApp = angular.module('listApp', ['httpService']).
         //列表页面加载
         httpService.loadList().
             success(function (data) {
-                $scope.appendItemContent();
+                $scope.appendItemContent(data);
             });
 
         //加载更多
         $scope.loadMore = function () {
             httpService.loadList().
                 success(function (data) {
-                    $scope.appendItemContent();
+                    $scope.appendItemContent(data);
                 });
         }
 
